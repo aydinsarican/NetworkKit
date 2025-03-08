@@ -11,7 +11,7 @@ public final class NetworkManager {
     @MainActor public static let shared = NetworkManager()
 
     private var configuration: NetworkConfiguration?
-    private let urlSession: URLSession
+    private var urlSession: URLSession
     private let decoder: JSONDecoder
 
     private init() {
@@ -25,6 +25,12 @@ public final class NetworkManager {
     /// **Network yapılandırmasını setlemek için çağırılacak fonksiyon**
     public func setConfiguration(_ config: NetworkConfiguration) {
         configuration = config
+
+        let sessionConfig = URLSessionConfiguration.default
+        sessionConfig.timeoutIntervalForRequest = config.timeoutInterval
+        sessionConfig.timeoutIntervalForResource = config.timeoutInterval
+
+        urlSession = URLSession(configuration: sessionConfig)
     }
 
     public func request<T: Decodable>(_ endpoint: Endpoint) async throws -> T {
@@ -40,6 +46,10 @@ public final class NetworkManager {
         request.httpMethod = endpoint.method.rawValue
         request.allHTTPHeaderFields = config.globalHeaders?.merging(endpoint.headers ?? [:]) { (_, new) in new }
         request.httpBody = endpoint.body
+
+        if let customTimeout = endpoint.timeout {
+            request.timeoutInterval = customTimeout
+        }
 
         do {
             let (data, response) = try await urlSession.data(for: request)
