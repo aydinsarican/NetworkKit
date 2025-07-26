@@ -7,7 +7,7 @@
 
 import Foundation
 
-public protocol NetworkClientProtocol {
+public protocol NetworkClientProtocol: Sendable {
     func request<T: Decodable>(_ endpoint: Endpoint) async throws -> T
     func download(from url: URL, to destination: URL) async throws
     func upload(fileURL: URL, to endpoint: Endpoint) async throws -> Data

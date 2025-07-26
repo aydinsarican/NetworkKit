@@ -7,7 +7,7 @@
 
 import Foundation
 
-public final class NetworkClient: NetworkClientProtocol {
+public final class NetworkClient: NetworkClientProtocol, @unchecked Sendable {
     @MainActor public static let shared = NetworkClient()
 
     private var configuration: NetworkConfiguration?
