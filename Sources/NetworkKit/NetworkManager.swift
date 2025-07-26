@@ -7,8 +7,8 @@
 
 import Foundation
 
-public final class NetworkManager {
-    @MainActor public static let shared = NetworkManager()
+public final class NetworkClient: NetworkClientProtocol {
+    @MainActor public static let shared = NetworkClient()
 
     private var configuration: NetworkConfiguration?
     private var urlSession: URLSession
