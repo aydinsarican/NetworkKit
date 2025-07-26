@@ -1,5 +1,5 @@
 //
-//  NetworkManager.swift
+//  NetworkClient.swift
 //  NetworkKit
 //
 //  Created by Aydın Sarıcan on 8.03.2025.
