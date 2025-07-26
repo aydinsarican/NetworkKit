@@ -14,6 +14,8 @@ public protocol Endpoint {
     var queryItems: [URLQueryItem]? { get }
     var body: Data? { get }
     var timeout: TimeInterval? { get }
+    var contentType: String? { get }
+    var accept: String? { get }
 }
 
 public extension Endpoint {
@@ -21,8 +23,10 @@ public extension Endpoint {
     var queryItems: [URLQueryItem]? { nil }
     var body: Data? { nil }
     var timeout: TimeInterval? { nil }
+    var contentType: String? { nil }
+    var accept: String? { nil }
 }
 
 public enum HTTPMethod: String {
-    case GET, POST, PUT, DELETE
+    case GET, POST, PUT, DELETE, PATCH, HEAD, OPTIONS, TRACE, CONNECT
 }
